@@ -12,7 +12,8 @@ export function ListLocation(): JSX.Element {
   const sortingValue = useAppSelector((state) => state.sorting);
   const allData = useAppSelector((state) => state.allData);
   const cities = Object.values(CityMap);
-  function changeCity (city:string) {
+  type TCityProps = string;
+  function changeCity (city:TCityProps) {
     const offersFilter: TOffers = allData.filter((item) => item.city.name === city);
     dispatch(filtrationCity(city));
     dispatch(getPopularOffers(offersFilter));

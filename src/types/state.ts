@@ -25,12 +25,18 @@ export type TInitialState = {
   loginSendingStatus: RequestStatus;
   nearPlaces: TOfferNearPlace[];
   error: string | null;
-  favoritesPageStatus: boolean;
+  favoritesPageStatus: RequestStatus;
   favoritesPage: TFavoriteOffer[];
   favoritesPageError: boolean;
   addFavoriteStatus: boolean;
   addFavoriteError: boolean;
 }
+
+export type TUserData = {
+  authorizationStatus: AuthorizationStatus;
+  user: TUser | null;
+  sendingStatus: RequestStatus;
+};
 
 export type TFavoriteOffer = {
   id: string;
@@ -98,4 +104,3 @@ export type TOfferNearPlace = {
   isPremium: boolean;
   rating: number;
 }
-

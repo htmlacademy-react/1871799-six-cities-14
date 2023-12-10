@@ -1,15 +1,15 @@
 import { NUMBER_OF_STARS, Sorting, TOTAL_PERCENTEGE } from '../const';
 import { TOffers } from '../types/types';
 
-function capitalize(str: string) {
+export function capitalize(str: string) {
   return str[0].toUpperCase() + str.slice(1);
 }
 
-function addPluralEnging(count: number) {
+export function addPluralEnging(count: number) {
   return count !== 1 ? 's' : '';
 }
 
-function getDate(data:string) {
+export function getDate(data:string) {
   const date = new Date(data);
   const mounth = date.toLocaleString('default', { month: 'long' });
   const year = date.getFullYear();
@@ -19,7 +19,7 @@ function getDate(data:string) {
   return (`${newMounth} ${year}`);
 }
 
-function addZero(num: number) {
+export function addZero(num: number) {
   if (num >= 0 && num <= 9) {
     return `${0}num`;
   } else {
@@ -27,12 +27,12 @@ function addZero(num: number) {
   }
 }
 
-function getDateTime(data: string) {
+export function getDateTime(data: string) {
   const date = new Date(data);
   return (`${addZero(date.getFullYear())}-${addZero(date.getMonth() + 1)}-${addZero(date.getDate())}`);
 }
 
-function conversionToPercentage(rating: number) {
+export function conversionToPercentage(rating: number) {
   const ratingRound = Math.round(rating);
   return (`${ratingRound * TOTAL_PERCENTEGE / NUMBER_OF_STARS}%`);
 }
@@ -41,7 +41,7 @@ type TAcc = {
   [key: string]: TOffers;
 }
 
-function transformArray(data: TOffers) {
+export function transformArray(data: TOffers) {
   const objectData = data.reduce(
     (acc:TAcc, object) => {
       const city: string = object.city.name;
@@ -71,6 +71,3 @@ export function sortedOffers(sorting: Sorting, offersPopular:TOffers, offers:TOf
 export function getRandomArrayElement<T>(items: T[]): T {
   return items[Math.floor(Math.random() * items.length)];
 }
-
-
-export { capitalize, addPluralEnging, getDate, getDateTime, conversionToPercentage, transformArray};

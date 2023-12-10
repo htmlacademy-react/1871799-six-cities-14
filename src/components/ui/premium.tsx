@@ -1,6 +1,10 @@
 import { memo } from 'react';
 
-export function Premium ({block} : {block: string}): JSX.Element {
+type TPremiumProps = {
+  block: string;
+}
+
+export function Premium ({block} : TPremiumProps): JSX.Element {
   return (
     <div className={block}>
       <span>Premium</span>

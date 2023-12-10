@@ -4,13 +4,13 @@ import { addPluralEnging } from '../../../utils/common';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { Map } from '../map/map';
 import { SortItem } from '../sort-item/sort-item';
-import MemorizedListLocation from '../list-cities/list-location';
 import { TOffer, TOfferForOffers } from '../../../types/types';
-import { fetchOffers } from '../../../store/api-action';
-import { RequestStatus } from '../../../const';
+import { fetchFavorites, fetchOffers } from '../../../store/api-action';
+import { AuthorizationStatus, RequestStatus } from '../../../const';
 import { PageError } from '../../pages/page-error/page-error';
 import Loader from '../loader/loader';
 import { MainEmpty } from '../main-empty/main-empty';
+import MemorizedListLocation from '../list-location/list-location';
 
 export type TMainBlocks= {
   placesOptions: TMainItem[];
@@ -39,10 +39,14 @@ export function MainBlock(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const fetchingStatus = useAppSelector((state) => state.offersFetchingStatus);
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
 
   useEffect(()=>{
     dispatch(fetchOffers());
-  }, [dispatch]);
+    if (authStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavorites());
+    }
+  }, [dispatch, authStatus]);
 
   const activeCity = useAppSelector((state) => state.city);
   const offersList = useAppSelector((state) => state.offers);

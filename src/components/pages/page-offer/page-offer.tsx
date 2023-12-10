@@ -145,7 +145,7 @@ export function PageOffer(): JSX.Element {
                 <section className="offer__reviews reviews">
                   <h2 className="reviews__title">Review{addPluralEnging(reviewsCount)} &middot; <span className="reviews__amount">{reviewsCount}</span></h2>
                   <ReviewList reviews={reviewList} />
-                  {status === AuthorizationStatus.Auth && id ? <ReviewForm offerId = {id} /> : ''}
+                  {status === AuthorizationStatus.Auth && id ? <ReviewForm id = {id} /> : ''}
                 </section>
               </div>
             </div>

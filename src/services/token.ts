@@ -13,5 +13,3 @@ export function saveToken(token: TToken) {
 export function dropToken() {
   localStorage.removeItem(AUTH_TOKEN_KEY_NAME);
 }
-
-

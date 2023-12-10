@@ -1,8 +1,8 @@
 import { createAction } from '@reduxjs/toolkit';
 import { TCity, TOffer, TOfferForOffers, TOffers, TReviews, TUser } from '../types/types';
-import { AuthorizationStatus, NameSpace, Sorting } from '../const';
+import { AppRoute, AuthorizationStatus, NameSpace, Sorting } from '../const';
 
-export const filtrationCity = createAction('offer/filtrationCity', (value: string)=>({
+export const filtrationCity = createAction('offer/filtrationCity', (value: TCity['name'])=>({
   payload: value,
 }));
 
@@ -60,7 +60,7 @@ export const loadComments = createAction('data/loadComments', (value: TReviews) 
   payload: value,
 }));
 
-export const changePagePath = createAction('browser/changePagePath', (value: string) => ({
+export const changePagePath = createAction('browser/changePagePath', (value: AppRoute) => ({
   payload: value,
 }));
 

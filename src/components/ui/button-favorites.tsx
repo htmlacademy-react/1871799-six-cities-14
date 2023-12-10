@@ -4,7 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { addFavorite, deleteFavorite } from '../../store/api-action';
 
-export function ButtonFavorites({offer, block}: {offer:TOfferForOffers; block: string}): JSX.Element {
+type TButtomProps = {
+  offer:TOfferForOffers;
+  block: string;
+}
+
+export function ButtonFavorites({offer, block}: TButtomProps): JSX.Element {
   const isActive = offer.isFavorite;
   const id = offer.id;
   const navigate = useNavigate();

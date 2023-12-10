@@ -8,10 +8,10 @@ import { dropReviewSendingStatus } from '../../../store/action';
 import { Rating } from '../rating/rating';
 
 type TReviewsProps = {
-  offerId: TOffer['id'];
+  id: TOffer['id'];
 };
 
-export function ReviewForm({ offerId }: TReviewsProps) {
+export function ReviewForm({ id }: TReviewsProps) {
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState(0);
 
@@ -43,7 +43,7 @@ export function ReviewForm({ offerId }: TReviewsProps) {
       postReviews({
         comment,
         rating,
-        offerId,
+        id,
       })
     );
   };

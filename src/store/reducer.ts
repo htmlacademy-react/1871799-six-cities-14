@@ -24,7 +24,7 @@ const initialState: TInitialState = {
   loginSendingStatus: RequestStatus.Idle,
   nearPlaces: [],
   error: null,
-  favoritesPageStatus: false,
+  favoritesPageStatus: RequestStatus.Idle,
   favoritesPage: [],
   favoritesPageError: false,
   addFavoriteStatus: false,
@@ -48,6 +48,7 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(login.fulfilled, (state, action) => {
       state.authorizationStatus = AuthorizationStatus.Auth;
       state.user = action.payload;
+      state.loginSendingStatus = RequestStatus.Success;
     })
     .addCase(login.rejected, (state) => {
       state.authorizationStatus = AuthorizationStatus.NoAuth;
@@ -55,6 +56,7 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(logout.fulfilled, (state) => {
       state.authorizationStatus = AuthorizationStatus.NoAuth;
       state.user = null;
+      state.loginSendingStatus = RequestStatus.Success;
     })
     .addCase(fetchOffers.pending, (state) => {
       state.offersFetchingStatus = RequestStatus.Pending;
@@ -147,14 +149,13 @@ export const reducer = createReducer(initialState, (builder) => {
       state.offers = sortedOffers(state.sorting, state.offersPopularSort, state.offers);
     })
     .addCase(fetchFavorites.pending, (state) => {
-      state.favoritesPageStatus = true;
+      state.favoritesPageStatus = RequestStatus.Pending;
     })
     .addCase(fetchFavorites.rejected, (state) => {
-      state.favoritesPageStatus = false;
-      state.favoritesPageError = true;
+      state.favoritesFetchingStatus = RequestStatus.Error;
     })
     .addCase(fetchFavorites.fulfilled, (state, action) => {
-      state.favoritesPageStatus = false;
+      state.favoritesPageStatus = RequestStatus.Success;
       state.favoritesPage = action.payload;
     })
     .addCase(addFavorite.pending, (state) => {

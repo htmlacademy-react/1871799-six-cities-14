@@ -4,7 +4,7 @@ export type TListLocationProps = {
   itemsList: TMainItem[];
 };
 
-export function ListPlacesOptions({itemsList} : {itemsList:TMainItem[]}): JSX.Element {
+export function ListPlacesOptions({itemsList} : TListLocationProps): JSX.Element {
   return (
     <ul className='places__options places__options--custom places__options--opened'>
       {

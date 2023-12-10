@@ -1,7 +1,11 @@
 import { TComment } from '../../types/types';
 import { getDate, getDateTime, conversionToPercentage } from '../../utils/common';
 
-export function ReviewItem({comment}:{comment:TComment}): JSX.Element {
+type TReviewsProps = {
+  comment: TComment;
+}
+
+export function ReviewItem({comment}:TReviewsProps): JSX.Element {
   const ratingUser = conversionToPercentage(comment.rating);
 
   return (

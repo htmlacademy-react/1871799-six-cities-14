@@ -7,7 +7,6 @@ export function SortItem ():JSX.Element {
   const [opened, setOpened] = useState<boolean>(false);
   const activeSorting = useAppSelector((state) => state.sorting);
   const dispatch = useAppDispatch();
-  // const offers = useAppSelector((state)=> state.offers)
 
   function handleToggle() {
     setOpened(!opened);

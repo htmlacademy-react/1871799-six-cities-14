@@ -1,11 +1,10 @@
 import React, { useState, FormEvent, useMemo, useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
 import styles from './login.module.css';
-import { Header } from '../../layout/header/header';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
-import { changeLocation, dropSendingStatus } from '../../../store/action';
+import { changeLocation, changePagePath, dropSendingStatus } from '../../../store/action';
 import { AppRoute, AuthorizationStatus, CityMap, RequestStatus } from '../../../const';
 import { getRandomArrayElement } from '../../../utils/common';
 import { fetchFavorites, loginAction } from '../../../store/api-action';
@@ -47,10 +46,12 @@ export function PageLogin() {
     if(!isValid) {
       return;
     }
+
     const form = e.currentTarget;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData) as TLoginData;
     dispatch(loginAction(data)).then(() => dispatch(fetchFavorites()));
+
     if (sendingStatus === RequestStatus.Success) {
       setEmail('');
       setPassword('');
@@ -72,7 +73,17 @@ export function PageLogin() {
       <Helmet>
         <title>6 cities | Login</title>
       </Helmet>
-      <Header />
+      <header className="header">
+        <div className="container">
+          <div className="header__wrapper">
+            <div className="header__left">
+              <Link onClick={() => dispatch(changePagePath(AppRoute.Root))} className="header__logo-link header__logo-link--active" to={AppRoute.Root}>
+                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </header >
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">
@@ -110,6 +121,7 @@ export function PageLogin() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   onBlur={() => setIsPasswordFilled(true)}
+                  autoComplete="on"
                 />
               </div>
               {isPasswordFilled && !isPasswordValid && (
@@ -118,7 +130,6 @@ export function PageLogin() {
               <button
                 className="login__submit form__submit button"
                 type="submit"
-                disabled={!isValid || sendingStatus === RequestStatus.Pending}
               >
                 {sendingStatus === RequestStatus.Pending ? 'sending...' : 'Sign in'}
 
